@@ -8,6 +8,10 @@
       "android"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git"
+  },
   "keywords": [
     "ecosystem:cordova",
     "cordova-android"
