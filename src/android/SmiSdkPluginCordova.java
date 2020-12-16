@@ -52,14 +52,14 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
         }
 
         if (action.equals("getSDState")) {
-            Log.d(TAG, "getSDState");
+            // Log.d(TAG, "getSDState");
             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, getCurrentSdState());
             pluginResult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult);
             return true;
         }
         else if (action.equals("sdStateObserver")){
-            Log.d(TAG, "sdStateObserver");
+            // Log.d(TAG, "sdStateObserver");
             this.connectionCallbackContext = callbackContext;
 
             if(!TextUtils.isEmpty(getCurrentSdState())){

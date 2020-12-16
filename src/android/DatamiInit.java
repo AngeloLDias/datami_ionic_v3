@@ -56,19 +56,19 @@ public class DatamiInit {
         }
 
         if(iconName == null) {
-            iconName = "icon";
+            iconName = "ic_launcher";
         }
 
-        Log.d(TAG, "apiKey " + apiKey + " useSdkMessaging " + useSdkMessaging + " useSdkNotifMessaging " + useSdkNotifMessaging + " iconFolder " + iconFolder + " iconName " + iconName);
+        Log.d(TAG, "apiKey: " + apiKey + ", useSdkMessaging: " + useSdkMessaging + ", useSdkNotifMessaging: " + useSdkNotifMessaging + ", iconFolder: " + iconFolder + ", iconName: " + iconName);
 
         boolean sdkMessaging = Boolean.parseBoolean(useSdkMessaging);
         boolean sdkNotifMessaging = Boolean.parseBoolean(useSdkNotifMessaging);
 
-        Log.d(TAG, "sdkMessaging " + sdkMessaging + " sdkNotifMessaging " + sdkNotifMessaging);
+        Log.d(TAG, "sdkMessaging: " + sdkMessaging + ", sdkNotifMessaging: " + sdkNotifMessaging);
 
         if(sdkNotifMessaging) {
             int iconId = context.getResources().getIdentifier(iconName, iconFolder, context.getPackageName());
-            Log.d(TAG, "iconId " + iconId);
+            Log.d(TAG, "iconId: " + iconId);
             SmiSdk.initSponsoredData(apiKey, context, "", iconId, sdkMessaging);
         }else{
             SmiSdk.initSponsoredData(apiKey, context, "", -1, sdkMessaging);
