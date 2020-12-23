@@ -20,6 +20,23 @@
                                                  name:SDSTATE_CHANGE_NOTIF object:nil];
 }
 
+- (void)sdStateObserver:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"SmiSdkPluginCordova - sdStateObserver");
+    _callbackId = command.callbackId;
+    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+    if (app.smiResult.sdState == SD_AVAILABLE) {
+        sdStatus = @"SD_AVAILABLE";
+    }
+    else if (app.smiResult.sdState == SD_WIFI) {
+        sdStatus = @"SD_WIFI";
+    }
+    else {
+        sdStatus = [NSString stringWithFormat:@"SD_NOT_AVAILABLE, Reason: %@",[self getSDReasonAsString:app.smiResult.sdReason]];
+    }
+    [self sendPluginResult];
+}
+
 - (void)getSDState:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"SmiSdkPluginCordova - getSDState");
