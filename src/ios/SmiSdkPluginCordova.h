@@ -1,5 +1,5 @@
 //
-//  DatamiSDStateChangePlugin.h
+//  SmiSdkPluginCordova.h
 //  GAIntegration
 //
 //  Created by Damandeep Singh on 09/10/17.
@@ -22,7 +22,5 @@
 - (void)getSDAuth:(CDVInvokedUrlCommand*)command;
 - (void)startSponsoredData:(CDVInvokedUrlCommand*)command;
 - (void)stopSponsoredData:(CDVInvokedUrlCommand*)command;
-- (void)startSponsorVpn:(CDVInvokedUrlCommand*)command;
-- (void)stopSponsorVpn:(CDVInvokedUrlCommand*)command;
 
 @end

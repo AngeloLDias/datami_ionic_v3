@@ -5,7 +5,7 @@
 //  Created by Damandeep Singh on 09/10/17.
 //
 
-#import "DatamiSDStateChangePlugin.h"
+#import "SmiSdkPluginCordova.h"
 #import "SmiSdk.h"
 #import "SmiAnalytics.h"
 #import "AppDelegate+datami.h"
@@ -76,26 +76,6 @@
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)startSponsorVpn:(CDVInvokedUrlCommand*)command{
-    
-    NSLog(@"SmiSdkPluginCordova - startSponsorVpn Invoked");
-    // _callbackId = command.callbackId;
-    [SmiSdk startSponsorVpn];
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [result setKeepCallbackAsBool:NO];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)stopSponsorVpn:(CDVInvokedUrlCommand*)command{
-    NSLog(@"SmiSdkPluginCordova - stopSponsorVpn Invoked");
-    // _callbackId = command.callbackId;
-    [SmiSdk stopSponsorVpn];
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [result setKeepCallbackAsBool:NO];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    
 }
 
 - (void)updateUserId:(CDVInvokedUrlCommand *)command
