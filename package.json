@@ -1,20 +1,22 @@
 {
   "name": "cordova-ionic-smisdk-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Cordova ionic SmiSdkPlugin Plugin",
   "cordova": {
     "id": "cordova-ionic-smisdk-plugin",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git"
+    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git#dev"
   },
   "keywords": [
     "ecosystem:cordova",
-    "cordova-android"
+    "cordova-android",
+    "cordova-ios"    
   ],
   "author": "Datami",
   "license": "Datami mobile solutions"
