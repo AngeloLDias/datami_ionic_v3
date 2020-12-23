@@ -15,27 +15,22 @@
             </feature>
         </config-file>
 
-        <!-- <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-                <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
-          <application android:networkSecurityConfig="@xml/network_security_config" />
-        </edit-config>
 
-        <resource-file src="resources/android/xml/network_security_config.xml" target="res/xml/network_security_config.xml" /> -->
-
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application" mode="merge">
-            <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <config-file target="app/src/main/AndroidManifest.xml" parent="./application">
+          <service android:name="com.datami.smi.SmiIntentService" />
         </config-file>
 
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application" mode="merge">
-            <service android:name="com.datami.smi.SmiIntentService" />
+        <config-file target="app/src/main/AndroidManifest.xml" parent="./application">
+          <uses-library android:name="org.apache.http.legacy" android:required="false" />
         </config-file>
 
-        <!-- <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.INTERNET"/>
-        </config-file> -->
 
         <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
           <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        </config-file>
+
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+          <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
         </config-file>
 
         <source-file src="src/android/SmiSdkPluginCordova.java" target-dir="src/com/datami" />
