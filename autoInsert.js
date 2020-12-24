@@ -1,6 +1,6 @@
 module.exports = function(ctx) {
     var fs = require('fs'),
-        path = require('path')
+        path = require('path');
 
     var tsScriptPath = path.join(ctx.opts.projectRoot, 'plugins', 'cordova-ionic-smisdk-plugin', 'src', 'android', 'smi-sdk-cordova', 'index.js');
     var destLocationPath = path.join(ctx.opts.projectRoot, 'node_modules', '@ionic-native', 'smi-sdk-cordova');
