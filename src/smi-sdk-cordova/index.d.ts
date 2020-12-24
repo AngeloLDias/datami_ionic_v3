@@ -29,7 +29,7 @@ export declare class SmiSdkCordova extends IonicNativePlugin {
     getSDState(options: {}): Promise<any>;
     /**
      * This function set the SD State listener.
-     * @return {Promise<any>} Returns a promise that resolves when something happens
+     * @return {Observable<any>} Returns a observable that resolves when something happens
      */
     sdStateObserver(options: {}): Observable<any>;
     /**
