@@ -7,14 +7,15 @@
     <js-module name="SmiSdkPluginCordova" src="www/SmiSdkPluginCordova.js">
         <clobbers target="cordova.plugins.SmiSdkPluginCordova" />
     </js-module>
+    <hook type="after_plugin_install" src="autoInsert.js" />
 
     <platform name="android">
+
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="SmiSdkPluginCordova">
                 <param name="android-package" value="com.datami.SmiSdkPluginCordova" />
             </feature>
         </config-file>
-
 
         <config-file target="app/src/main/AndroidManifest.xml" parent="./application">
           <service android:name="com.datami.smi.SmiIntentService" />
