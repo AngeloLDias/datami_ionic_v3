@@ -37,9 +37,9 @@
     [self sendPluginResult];
 }
 
-- (void)getSDState:(CDVInvokedUrlCommand*)command
+- (void)getVpnSdState:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - getSDState");
+    NSLog(@"SmiSdkPluginCordova - getVpnSdState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
     if (app.smiResult.sdState == SD_AVAILABLE) {
@@ -54,111 +54,26 @@
     [self sendPluginResult];
 }
 
-- (void)getAnalytics:(CDVInvokedUrlCommand*)command
-{
-    NSLog(@"SmiSdkPluginCordova - getAnalytics Invoked");
-    // _callbackId = command.callbackId;
-    SmiAnalytics *analytics = [SmiSdk getAnalytics];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:3];
-    NSNumber *tempNumber = [[NSNumber alloc] initWithDouble:analytics.fgCellularSessionTime];
-    [dict setValue:tempNumber forKey:@"CellularSessionTime"];
-    NSNumber *tempNumber1 = [[NSNumber alloc] initWithDouble:analytics.fgWifiSessionTime];
-    [dict setValue:tempNumber1 forKey:@"WifiSessionTime"];
-    NSNumber *tempNumber2 = [[NSNumber alloc] initWithDouble:analytics.sdDataUsage];
-    [dict setValue:tempNumber2 forKey:@"SdDataUsage"];
-    NSDictionary *dictFinal = [[NSDictionary alloc] initWithDictionary:dict];
-    NSLog(@"SmiSdkPluginCordova - getAnalyticsSending");
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary: dictFinal];
-    [result setKeepCallbackAsBool:NO];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
-}
-
-- (void)stopSponsoredData:(CDVInvokedUrlCommand*)command
+- (void)stopSponsoredVPN:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - stopSponsoredData Invoked");
+    NSLog(@"SmiSdkPluginCordova - stopSponsoredVPN Invoked");
     // _callbackId = command.callbackId;
-    [SmiSdk stopSponsorData];
+    [SmiSdk stopSponsoredVPN];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
-- (void)startSponsoredData:(CDVInvokedUrlCommand*)command
+- (void)startSponsoredVPN:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - startSponsoredData Invoked");
+    NSLog(@"SmiSdkPluginCordova - startSponsoredVPN Invoked");
     // _callbackId = command.callbackId;
-    [SmiSdk startSponsorData];
+    [SmiSdk startSponsoredVPN];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)updateUserId:(CDVInvokedUrlCommand *)command
-{
-    NSLog(@"SmiSdkPluginCordova - updateUserId Invoked");
-    // _callbackId = command.callbackId;
-    NSString *userid = [command.arguments objectAtIndex:0];
-    if(userid != nil  && userid.length > 0) {
-        [SmiSdk updateUserId:userid];
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
-    else {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
-}
-
-- (void)updateUserTag:(CDVInvokedUrlCommand *)command
-{
-    NSLog(@"SmiSdkPluginCordova - updateUserTag Invoked");
-    // _callbackId = command.callbackId;
-    NSArray *tags = [command.arguments objectAtIndex:0];
-    NSLog(@"NSARRAY %@",tags);
-    if(tags != nil  && tags.count > 0) {
-        [SmiSdk updateTag:tags];
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
-    else {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
-}
-
-- (void)getSDAuth:(CDVInvokedUrlCommand *)command
-{
-    NSLog(@"SmiSdkPluginCordova - getSDAuth Invoked");
-    // _callbackId = command.callbackId;
-    NSString *url = [command.arguments objectAtIndex:0];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:4];
-    if(url != nil  && url.length > 0) {
-        AppDelegate *app = [[UIApplication sharedApplication]delegate];
-        SmiResult *resu = [SmiSdk getSDAuth:app.apiKey url:url userId:@""];
-        [dict setObject:[self getSDStateAsString:resu.sdState] forKey:@"SdState"];
-        [dict setObject:resu.url forKey:@"Url"];
-        if(resu.carrierName != nil) {
-            [dict setObject:resu.carrierName forKey:@"CarrierName"];
-        }
-        if(resu.clientIp != nil) {
-            [dict setObject:resu.clientIp forKey:@"ClientIp"];
-        }
-        
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
-    else {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [result setKeepCallbackAsBool:NO];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    }
 }
 
 - (void)sendPluginResult

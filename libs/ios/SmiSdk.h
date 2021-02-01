@@ -117,6 +117,8 @@ typedef NS_ENUM(NSInteger, SdReason) {
 +(SmiAnalytics*) getAnalytics;
 
 +(NSString *) getReasonString:(int) reasonCode;
++(NSString *)getSdStateString:(int)state;
+
 
 /* call this API to get username and password to use in VPN profile */
 +(SmiResult*)getVpnSDAuth:(NSString*)sdkKey;

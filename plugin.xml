@@ -69,7 +69,7 @@
 
         <header-file src="libs/ios/SmiSdk.h"/>
         <header-file src="libs/ios/SmiAnalytics.h"/>
-        <source-file src="libs/ios/libsmisdk.a" framework="true"/>
+        <source-file src="libs/ios/libsmisdkvpn.a" framework="true"/>
 
         <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
             <dict>

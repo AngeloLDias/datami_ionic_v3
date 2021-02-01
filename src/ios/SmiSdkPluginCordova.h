@@ -15,12 +15,9 @@
     NSString* _callbackId;
 
 }
-- (void)getSDState:(CDVInvokedUrlCommand*)command;
-- (void)getAnalytics:(CDVInvokedUrlCommand*)command;
-- (void)updateUserId:(CDVInvokedUrlCommand*)command;
-- (void)updateUserTag:(CDVInvokedUrlCommand*)command;
-- (void)getSDAuth:(CDVInvokedUrlCommand*)command;
-- (void)startSponsoredData:(CDVInvokedUrlCommand*)command;
-- (void)stopSponsoredData:(CDVInvokedUrlCommand*)command;
+
+- (void)startSponsoredVPN:(CDVInvokedUrlCommand*)command;
+- (void)stopSponsoredVPN:(CDVInvokedUrlCommand*)command;
+- (void)getVpnSdState:(CDVInvokedUrlCommand*)command;
 
 @end

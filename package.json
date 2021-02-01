@@ -1,7 +1,7 @@
 {
   "name": "cordova-ionic-smisdk-plugin",
-  "version": "1.0.2",
-  "description": "Cordova ionic SmiSdkPlugin Plugin",
+  "version": "1.0.0",
+  "description": "Cordova ionic SmiSdkPlugin VPN SDK Plugin",
   "cordova": {
     "id": "cordova-ionic-smisdk-plugin",
     "platforms": [
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git#dev"
+    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git#dev_vpn"
   },
   "keywords": [
     "ecosystem:cordova",

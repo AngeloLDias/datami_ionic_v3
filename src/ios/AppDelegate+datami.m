@@ -85,7 +85,7 @@ static char UIB_PROPERTY_KEY1;
 
     NSString* myUserId = @"";
 
-    [SmiSdk initSponsoredData: self.apiKey userId: myUserId showSDMessage:sdkMessaging];
+    [SmiSdk initSponsoredVPN: self.apiKey showSDMessage:sdkMessaging startVPN:YES ctrlVpnPerm:NO];
 }
 
 -(void)receivedStateChage:(NSNotification*)notif {
