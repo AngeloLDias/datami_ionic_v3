@@ -55,22 +55,22 @@
 }
 
 
-- (void)stopSponsoredVPN:(CDVInvokedUrlCommand*)command
+- (void)stopSponsoredVpn:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - stopSponsoredVPN Invoked");
+    NSLog(@"SmiSdkPluginCordova - stopSponsoredVpn Invoked");
     // _callbackId = command.callbackId;
-    [SmiSdk stopSponsoredVPN];
+    [SmiSdk stopSponsorVpn];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
-- (void)startSponsoredVPN:(CDVInvokedUrlCommand*)command
+- (void)startSponsoredVpn:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - startSponsoredVPN Invoked");
+    NSLog(@"SmiSdkPluginCordova - startSponsoredVpn Invoked");
     // _callbackId = command.callbackId;
-    [SmiSdk startSponsoredVPN];
+    [SmiSdk startSponsorVpn];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [result setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];

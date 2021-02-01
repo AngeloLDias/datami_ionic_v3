@@ -16,8 +16,8 @@
 
 }
 
-- (void)startSponsoredVPN:(CDVInvokedUrlCommand*)command;
-- (void)stopSponsoredVPN:(CDVInvokedUrlCommand*)command;
+- (void)startSponsoredVpn:(CDVInvokedUrlCommand*)command;
+- (void)stopSponsoredVpn:(CDVInvokedUrlCommand*)command;
 - (void)getVpnSdState:(CDVInvokedUrlCommand*)command;
 
 @end
