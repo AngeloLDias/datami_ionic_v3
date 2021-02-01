@@ -12,6 +12,6 @@ exports.stopSponsoredVpn = function (arg0, success, error) {
     exec(success, error, 'SmiSdkPluginCordova', 'stopSponsoredVpn', []);
 };
 
-exports.getVpnSdState = function (arg0, success, error) {
-    exec(success, error, 'SmiSdkPluginCordova', 'getVpnSdState', []);
+exports.getVpnSDState = function (arg0, success, error) {
+    exec(success, error, 'SmiSdkPluginCordova', 'getVpnSDState', []);
 };

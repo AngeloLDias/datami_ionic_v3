@@ -37,9 +37,9 @@
     [self sendPluginResult];
 }
 
-- (void)getVpnSdState:(CDVInvokedUrlCommand*)command
+- (void)getVpnSDState:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"SmiSdkPluginCordova - getVpnSdState");
+    NSLog(@"SmiSdkPluginCordova - getVpnSDState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
     if (app.smiResult.sdState == SD_AVAILABLE) {
