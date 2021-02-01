@@ -6,4 +6,5 @@ repositories {
 
 dependencies {
     implementation 'com.datami:vpnsdk:+'
+    implementation 'com.android.support:support-v4:28+'
 }
