@@ -6,7 +6,8 @@ import android.content.res.XmlResourceParser;
 import android.util.Log;
 
 import com.datami.smi.SmiResult;
-import com.datami.smi.SmiSdk;
+import com.datami.smi.SmiVpnSdk;
+import com.datami.smi.internal.MessagingType;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -26,7 +27,7 @@ public class DatamiInit {
     public static String API_KEY;
     public static SmiResult smiResult;
 
-    private static List<String> supportedKeys = new ArrayList(Arrays.asList("api_key", "sdk_messaging", "sdk_notficiation_messaging", "icon_folder", "icon_name"));
+    private static List<String> supportedKeys = new ArrayList(Arrays.asList("api_key", "sdk_messaging", "smisdk_start_vpn", "icon_folder", "icon_name"));
 
 
     public static void initSdk(Context context){
@@ -46,10 +47,10 @@ public class DatamiInit {
             useSdkMessaging = "false";
         }
 
-        String useSdkNotifMessaging = preferences.get("sdk_notficiation_messaging");
+        String startVpn = preferences.get("smisdk_start_vpn");
 
-        if(useSdkNotifMessaging == null) {
-            useSdkNotifMessaging = "false";
+        if(startVpn == null) {
+            startVpn = "false";
         }
         String iconFolder = preferences.get("icon_folder");
         String iconName = preferences.get("icon_name");
@@ -62,19 +63,19 @@ public class DatamiInit {
             iconName = "ic_launcher";
         }
 
-        Log.d(TAG, "useSdkMessaging: " + useSdkMessaging + ", useSdkNotifMessaging: " + useSdkNotifMessaging + ", iconFolder: " + iconFolder + ", iconName: " + iconName);
+        Log.d(TAG, "useSdkMessaging: " + useSdkMessaging + ", startVpn: " + startVpn + ", iconFolder: " + iconFolder + ", iconName: " + iconName);
 
         boolean sdkMessaging = Boolean.parseBoolean(useSdkMessaging);
-        boolean sdkNotifMessaging = Boolean.parseBoolean(useSdkNotifMessaging);
+        boolean isStartVpn = Boolean.parseBoolean(startVpn);
 
-        Log.d(TAG, "sdkMessaging: " + sdkMessaging + ", sdkNotifMessaging: " + sdkNotifMessaging);
+        Log.d(TAG, "sdkMessaging: " + sdkMessaging + ", isStartVpn: " + isStartVpn);
+        int iconId = context.getResources().getIdentifier(iconName, iconFolder, context.getPackageName());
+        Log.d(TAG, "iconId: " + iconId);
 
-        if(sdkNotifMessaging) {
-            int iconId = context.getResources().getIdentifier(iconName, iconFolder, context.getPackageName());
-            Log.d(TAG, "iconId: " + iconId);
-            SmiSdk.initSponsoredData(apiKey, context, "", iconId, sdkMessaging);
+        if(sdkMessaging){
+            SmiVpnSdk.initSponsoredData(apiKey, context, iconId, MessagingType.BOTH, isStartVpn);
         }else{
-            SmiSdk.initSponsoredData(apiKey, context, "", -1, sdkMessaging);
+            SmiVpnSdk.initSponsoredData(apiKey, context, iconId, MessagingType.NONE, isStartVpn);
         }
     }
 

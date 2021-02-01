@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.datami:smisdk:+'
+    implementation 'com.datami:vpnsdk:+'
 }
