@@ -3,21 +3,14 @@ package com.datami;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.datami.smi.Analytics;
 import com.datami.smi.SdState;
-import com.datami.smi.SmiResult;
-import com.datami.smi.SmiSdk;
+import com.datami.smi.SmiVpnSdk;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -51,15 +44,16 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             }
         }
 
-        if (action.equals("getSDState")) {
-            // Log.d(TAG, "getSDState");
-            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, getCurrentSdState());
+        if (action.equals("getVpnSDState")) {
+            Log.d(TAG, "getVpnSDState");
+            SdState state = SmiVpnSdk.getCurrentSdState();
+            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, state.name());
             pluginResult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult);
             return true;
         }
         else if (action.equals("sdStateObserver")){
-            // Log.d(TAG, "sdStateObserver");
+            Log.d(TAG, "sdStateObserver");
             this.connectionCallbackContext = callbackContext;
 
             if(!TextUtils.isEmpty(getCurrentSdState())){
@@ -69,76 +63,10 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             }
             return true;
         }
-        else if (action.equals("getAnalytics")) {
-            Analytics abc = SmiSdk.getAnalytics();
-            JSONObject dataObject = new JSONObject();
-
-            try {
-                dataObject.put("CellularSessionTime",abc.getCellularSessionTime());
-                dataObject.put("SdDataUsage",abc.getSdDataUsage());
-                dataObject.put("WifiSessionTime",abc.getWifiSessionTime());
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, dataObject);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-                return true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        else if (action.equals("updateUserId")) {
-            String userid = args.getString(0);
-            if (userid != null && userid.length() > 0) {
-                SmiSdk.updateUserId(userid);
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-            } else {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-            }
-            return true;
-        }
-        else if (action.equals("updateUserTag")) {
-            List<String> tags = new ArrayList<String>();
-            String userTags = args.getString(0);
-            String[] array = userTags.split(",");
-            Collections.addAll(tags, array);
-            if (tags.size() > 0) {
-                SmiSdk.updateUserTag(tags);
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-            } else {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-            }
-            return true;
-        }
-        else if (action.equals("getSDAuth")) {
-            String url = args.getString(0);
-            JSONObject dataObject = new JSONObject();
-            try {
-                SmiResult result = SmiSdk.getSDAuth(DatamiInit.API_KEY,cordova.getActivity().getApplicationContext(),url);
-                dataObject.put("SdState",result.getSdState().name());
-                dataObject.put("Url",result.getUrl());
-                dataObject.put("CarrierName",result.getCarrierName());
-                dataObject.put("ClientIp",result.getClientIp());
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, dataObject);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-            } catch (Exception e) {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR);
-                pluginResult.setKeepCallback(false);
-                callbackContext.sendPluginResult(pluginResult);
-                e.printStackTrace();
-            }
-            return true;
-        }
-        else if (action.equals("startSponsoredData")) {
+        else if (action.equals("startSponsoredVpn")) {
             try{
-                SmiSdk.startSponsoredData();
+                Log.d(TAG, "startSponsoredVpn");
+                SmiVpnSdk.startSponsoredData();
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
                 pluginResult.setKeepCallback(false);
                 callbackContext.sendPluginResult(pluginResult);
@@ -151,8 +79,9 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             }
             return true;
         }
-        else if (action.equals("stopSponsoredData")) {
-            SmiSdk.stopSponsoredData();
+        else if (action.equals("stopSponsoredVpn")) {
+            Log.d(TAG, "stopSponsoredVpn");
+            SmiVpnSdk.stopSponsoredData();
             PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
             pluginResult.setKeepCallback(false);
             callbackContext.sendPluginResult(pluginResult);
