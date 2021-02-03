@@ -81,7 +81,7 @@
     [self sendPluginResult];
 }
 
--(NSString *)getSDStateAsString:(SmiResult* ) sr {
+-(void)getSDStateAsString:(SmiResult* ) sr {
     if (sr.sdState == SD_AVAILABLE) {
         sdStatus = @"SD_AVAILABLE";
     }
