@@ -25,7 +25,7 @@
     NSLog(@"SmiSdkPluginCordova - sdStateObserver");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    [self getSDStateAsString:app.smiResult];    
+    [self setSDStateAsString:app.smiResult];
     [self sendPluginResult];
 }
 
@@ -34,7 +34,7 @@
     NSLog(@"SmiSdkPluginCordova - getSDState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    [self getSDStateAsString:app.smiResult];
+    [self setSDStateAsString:app.smiResult];
     [self sendPluginResult];
 }
 
@@ -162,11 +162,11 @@
 -(void)receivedStateChage:(NSNotification*)notif {
     SmiResult* sr =  notif.object;
     NSLog(@"SmiSdkPluginCordova - sdState: %ld", (long)sr.sdState);
-    [self getSDStateAsString:sr];
+    [self setSDStateAsString:sr];
     [self sendPluginResult];
 }
 
--(void)getSDStateAsString:(SmiResult* ) sr {
+-(void)setSDStateAsString:(SmiResult* ) sr {
     if (sr.sdState == SD_AVAILABLE) {
         sdStatus = @"SD_AVAILABLE";
     }
@@ -178,5 +178,17 @@
     }
 }
 
+-(NSString *)getSDStateAsString:(SdState) state {
+    switch (state) {
+        case SD_WIFI:
+            return @"WIFI";
+        case SD_AVAILABLE:
+            return @"SD_AVAILABLE";
+        case SD_NOT_AVAILABLE:
+            return @"SD_NOT_AVAILABLE";
+        default:
+            return @"";
+    }
+}
 
 @end
