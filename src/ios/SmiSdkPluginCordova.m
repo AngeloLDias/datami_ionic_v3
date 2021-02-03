@@ -89,7 +89,7 @@
         sdStatus = @"SD_WIFI";
     }
     else {
-        sdStatus = [NSString stringWithFormat:@"SD_NOT_AVAILABLE, Reason: %@", [SmiSdk getReasonString:(int)sr.sdReason];
+        sdStatus = [NSString stringWithFormat:@"SD_NOT_AVAILABLE, Reason: %@", [SmiSdk getReasonString:(int)sr.sdReason]];
     }
 }
 
