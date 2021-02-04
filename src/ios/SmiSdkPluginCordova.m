@@ -84,7 +84,6 @@
 -(void)setSDStateAsString:(SmiResult* ) sr {
     NSMutableDictionary *sdResult = [[NSMutableDictionary alloc] init];
     [sdResult setObject:[SmiSdk getSdStateString:sr.sdState] forKey:@"sdState"];
-    [sdResult setObject:[SmiSdk getReasonString:(int)sr.sdReason] forKey:@"sdReason"];
     if(SD_WIFI != sr.sdState){
         if(NULL != sr.carrierName){
             [sdResult setObject:sr.carrierName forKey:@"carrierName"];
@@ -92,6 +91,9 @@
         if(NULL != sr.clientIp){
             [sdResult setObject:sr.clientIp forKey:@"clientIp"];
         }
+        [sdResult setObject:[SmiSdk getReasonString:(int)sr.sdReason] forKey:@"sdReason"];
+    }else{
+        [sdResult setObject:@"SD_REASON_NONE" forKey:@"sdReason"];
     }
     NSError *err = nil;
 
