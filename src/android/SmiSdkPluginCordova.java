@@ -28,14 +28,10 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
     private static CallbackContext connectionCallbackContext;
 
     public static void onChange() {
-        String sdState = "";
-        sdState = DatamiInit.smiResult.getSdState().name();
-        if (DatamiInit.smiResult.getSdState() == SdState.SD_NOT_AVAILABLE) {
-            sdState = sdState + ", Reason: "+DatamiInit.smiResult.getSdReason().name();
-        }
+        JSONObject jsonResult = getResultJson();
         if (connectionCallbackContext != null) {
             Log.d(TAG, "Sending Result");
-            PluginResult result = new PluginResult(PluginResult.Status.OK, sdState);
+            PluginResult result = new PluginResult(PluginResult.Status.OK, jsonResult);
             result.setKeepCallback(true);
             connectionCallbackContext.sendPluginResult(result);
         }
@@ -63,7 +59,7 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             this.connectionCallbackContext = callbackContext;
 
             if(!TextUtils.isEmpty(getCurrentSdState())){
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, getCurrentSdState());
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, getResultJson());
                 pluginResult.setKeepCallback(true);
                 callbackContext.sendPluginResult(pluginResult);
             }
@@ -121,10 +117,16 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             JSONObject dataObject = new JSONObject();
             try {
                 SmiResult result = SmiSdk.getSDAuth(DatamiInit.API_KEY,cordova.getActivity().getApplicationContext(),url);
-                dataObject.put("SdState",result.getSdState().name());
-                dataObject.put("Url",result.getUrl());
-                dataObject.put("CarrierName",result.getCarrierName());
-                dataObject.put("ClientIp",result.getClientIp());
+                dataObject.put("sdState",result.getSdState().name());
+                dataObject.put("url",result.getUrl());
+                if(result.getSdState()!= SdState.WIFI){
+                    if(!TextUtils.isEmpty(result.getCarrierName())) {
+                        dataObject.put("carrierName",result.getCarrierName());
+                    }
+                    if(!TextUtils.isEmpty(result.getClientIp())) {
+                        dataObject.put("clientIp",result.getClientIp());
+                    }
+                }
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, dataObject);
                 pluginResult.setKeepCallback(false);
                 callbackContext.sendPluginResult(pluginResult);
@@ -171,5 +173,24 @@ public class SmiSdkPluginCordova extends CordovaPlugin {
             }
         }
         return sdState;
+    }
+
+    private static JSONObject getResultJson(){
+        JSONObject jsonResult = new JSONObject();
+        try{
+            jsonResult.put("sdState",DatamiInit.smiResult.getSdState().name());
+            jsonResult.put("sdReason",DatamiInit.smiResult.getSdReason().name());
+            if(DatamiInit.smiResult.getSdState()!= SdState.WIFI){
+                if(!TextUtils.isEmpty(DatamiInit.smiResult.getCarrierName())) {
+                    jsonResult.put("carrierName",DatamiInit.smiResult.getCarrierName());
+                }
+                if(!TextUtils.isEmpty(DatamiInit.smiResult.getClientIp())) {
+                    jsonResult.put("clientIp",DatamiInit.smiResult.getClientIp());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return jsonResult;
     }
 }
