@@ -25,7 +25,7 @@
     NSLog(@"SmiSdkPluginCordova - sdStateObserver");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    [self getSDStateAsString:app.smiResult];    
+    [self setSDStateAsString:app.smiResult];
     [self sendPluginResult];
 }
 
@@ -34,7 +34,7 @@
     NSLog(@"SmiSdkPluginCordova - getVpnSDState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    [self getSDStateAsString:app.smiResult];
+    [self setSDStateAsString:app.smiResult];
     [self sendPluginResult];
 }
 
@@ -77,21 +77,26 @@
 -(void)receivedStateChage:(NSNotification*)notif {
     SmiResult* sr =  notif.object;
     NSLog(@"SmiSdkPluginCordova - sdState: %ld", (long)sr.sdState);
-    [self getSDStateAsString:sr];
+    [self setSDStateAsString:sr];
     [self sendPluginResult];
 }
 
--(void)getSDStateAsString:(SmiResult* ) sr {
-    if (sr.sdState == SD_AVAILABLE) {
-        sdStatus = @"SD_AVAILABLE";
+-(void)setSDStateAsString:(SmiResult* ) sr {
+    NSMutableDictionary *sdResult = [[NSMutableDictionary alloc] init];
+    [sdResult setObject:[SmiSdk getSdStateString:sr.sdState] forKey:@"sdState"];
+    [sdResult setObject:[SmiSdk getReasonString:(int)sr.sdReason] forKey:@"sdReason"];
+    if(SD_WIFI != sr.sdState){
+        if(NULL != sr.carrierName){
+            [sdResult setObject:sr.carrierName forKey:@"carrierName"];
+        }
+        if(NULL != sr.clientIp){
+            [sdResult setObject:sr.clientIp forKey:@"clientIp"];
+        }
     }
-    else if (sr.sdState == SD_WIFI) {
-        sdStatus = @"SD_WIFI";
-    }
-    else {
-        sdStatus = [NSString stringWithFormat:@"SD_NOT_AVAILABLE, Reason: %@", [SmiSdk getReasonString:(int)sr.sdReason]];
-    }
+    NSError *err = nil;
+
+    NSData* result = [NSJSONSerialization dataWithJSONObject:sdResult options:0 error:&err];
+    sdStatus = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+
 }
-
-
 @end
