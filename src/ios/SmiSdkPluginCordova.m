@@ -34,8 +34,10 @@
     NSLog(@"SmiSdkPluginCordova - getVpnSDState");
     _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    [self setSDStateAsString:app.smiResult];
-    [self sendPluginResult];
+    if(NULL != app.smiResult){
+        [self setSDStateAsString:app.smiResult];
+        [self sendPluginResult];
+    }
 }
 
 
