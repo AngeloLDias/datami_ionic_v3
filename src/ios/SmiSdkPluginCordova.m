@@ -34,48 +34,43 @@
 - (void)getVpnSDState:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"SmiSdkPluginCordova - getVpnSDState");
-    _callbackId = command.callbackId;
     AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    if(NULL != app.smiResult){
-        [self setSDStateAsString:app.smiResult];
-        [self sendPluginResult];
-    }
+    [self setSDStateAsString:app.smiResult];
+    [self sendApiResult:command.callbackId messageAsString:sdStatus];
 }
 
 
 - (void)stopSponsoredVpn:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"SmiSdkPluginCordova - stopSponsoredVpn Invoked");
-    // _callbackId = command.callbackId;
     [SmiSdk stopSponsorVpn];
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [result setKeepCallbackAsBool:NO];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-
+    [self sendApiResult:command.callbackId messageAsString:NULL];
 }
 
 - (void)startSponsoredVpn:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"SmiSdkPluginCordova - startSponsoredVpn Invoked");
-    // _callbackId = command.callbackId;
     [SmiSdk startSponsorVpn];
+    [self sendApiResult:command.callbackId messageAsString:NULL];
+}
+
+- (void)sendApiResult : (NSString *)cbId messageAsString:(NSString*)msg
+{
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    if(NULL != msg){
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:msg];
+    }
     [result setKeepCallbackAsBool:NO];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:cbId];
 }
 
 - (void)sendPluginResult
 {
-    // if(![sdStatus isEqualToString:prevSdStatus]) {
         NSLog(@"SmiSdkPluginCordova - sendPluginResult");
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: sdStatus];
         [result setKeepCallbackAsBool:YES];
         [self.commandDelegate sendPluginResult:result callbackId:_callbackId];
         prevSdStatus = sdStatus;
-    // }
-    // else {
-    //     NSLog(@"SD Status is same as Previous SD Status");
-    // }
 }
 
 -(void)receivedStateChage:(NSNotification*)notif {
