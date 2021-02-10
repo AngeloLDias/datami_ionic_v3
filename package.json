@@ -1,6 +1,6 @@
 {
   "name": "cordova-ionic-smisdk-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cordova ionic SmiSdkPlugin VPN SDK Plugin",
   "cordova": {
     "id": "cordova-ionic-smisdk-plugin",
