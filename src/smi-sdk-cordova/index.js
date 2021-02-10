@@ -32,7 +32,7 @@ var SmiSdkCordova = /** @class */ (function (_super) {
     SmiSdkCordova.repo = "https://bitbucket.org/datami/cordova-ionic-smisdk-plugin";
     SmiSdkCordova.install = "";
     SmiSdkCordova.installVariables = [];
-    SmiSdkCordova.platforms = ["Android", "ios"];
+    SmiSdkCordova.platforms = ["Android"];
     return SmiSdkCordova;
 }(IonicNativePlugin));
 export { SmiSdkCordova };
