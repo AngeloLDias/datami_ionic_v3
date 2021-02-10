@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git#dev_vpn"
+    "url": "git+https://bitbucket.org/datami/cordova-ionic-smisdk-plugin.git#master_vpn"
   },
   "keywords": [
     "ecosystem:cordova",
